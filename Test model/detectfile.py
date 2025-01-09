@@ -8,7 +8,7 @@ import cv2
 import pathlib #แก้ PosixPath
 
 # ฟังก์ชันสำหรับการบันทึกข้อมูลลง PostgreSQL
-def save_to_postgresql(db_config, plate_number, image_path, location):
+def save_to_postgresql(db_config, car_number, image_path, location):
     try:
         # เชื่อมต่อฐานข้อมูล
         conn = psycopg2.connect(**db_config)
@@ -20,10 +20,10 @@ def save_to_postgresql(db_config, plate_number, image_path, location):
 
         # บันทึกข้อมูลลงในตาราง
         query = """
-        INSERT INTO license_plate_data (plate_number, image_data, location)
+        INSERT INTO car_data (car_number, image_data, location)
         VALUES (%s, %s, %s);
         """
-        cursor.execute(query, (plate_number, image_data, location))
+        cursor.execute(query, (car_number, image_data, location))
         conn.commit()
 
         # ปิดการเชื่อมต่อ
@@ -61,37 +61,37 @@ def detect_and_save(model_path, source_path, save_dir, db_config):
         for box in results.xyxy[0]:
             x1, y1, x2, y2, conf, cls = box
             label = results.names[int(cls)]  # ดึงชื่อ class จาก YOLOv5
-            plate_number = label  # เช่น "car", "plate", หรือชื่อ class ที่คุณกำหนด
+            car_number = label  # เช่น "car", "dog", หรือชื่อ class ที่คุณกำหนด
 
 
             # ครอบภาพที่ตรวจจับได้
-            cropped_plate = frame[int(y1):int(y2), int(x1):int(x2)]
+            cropped_car = frame[int(y1):int(y2), int(x1):int(x2)]
 
             # สร้างชื่อไฟล์สำหรับบันทึกภาพ
             timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
-            image_path = os.path.join(save_dir, f"plate_{timestamp}.jpg")
-            cv2.imwrite(image_path, cropped_plate)
+            image_path = os.path.join(save_dir, f"car_{timestamp}.jpg")
+            cv2.imwrite(image_path, cropped_car)
 
             # บันทึกข้อมูลลงฐานข้อมูล
             location = "Unknown"  # คุณสามารถเพิ่มพิกัด GPS ได้
-            save_to_postgresql(db_config, plate_number, image_path, location)
+            save_to_postgresql(db_config, car_number, image_path, location)
 
         print(f"Detection complete for frame {frame_idx + 1}")
 
 # ตั้งค่าการเชื่อมต่อฐานข้อมูล
 db_config = {
-    'dbname': 'license_plate_data',
-    'user': 'postgres',
-    'password': '1211',
-    'host': 'localhost',
-    'port': '5432'
+    'dbname': '_____________',
+    'user': '_____________',
+    'password': '_____________',
+    'host': '_____________',
+    'port': '_____________'
 }
 
 # เรียกใช้งานฟังก์ชัน
 if __name__ == "__main__":
-    model_path = r"C:\yolov5\license_plate_best2.pt"  # Path ของโมเดลที่ฝึกแล้ว
-    source_path = r"C:\yolov5\test"  # Path ของไฟล์รูปภาพหรือวิดีโอ
-    save_dir = r"\plates"  # Directory สำหรับบันทึกภาพที่ตรวจจับได้
+    model_path = r"best.pt"  # Path ของโมเดลที่ฝึกแล้ว
+    source_path = r"\path_input"  # Path ของไฟล์รูปภาพหรือวิดีโอ
+    save_dir = r"\path_output"  # Directory สำหรับบันทึกภาพที่ตรวจจับได้
     
     temp = pathlib.PosixPath #แก้ PosixPath
     pathlib.PosixPath = pathlib.WindowsPath #แก้ PosixPath
