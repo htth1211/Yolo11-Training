@@ -3,10 +3,17 @@ import cv2
 from ultralytics import YOLO
 
 # Load Model ที่ผ่านการTrain(Yolov11) เรียบร้อย 
-model = YOLO('yolo11x.pt') 
+model = YOLO('best.pt') 
 
 # รันการตรวจจับวัตถุบนวิดีโอจาก URL
-results = model('https://www.youtube.com/watch?v=-kYZRNBE0vY', stream=True) #vid_stride=2, save=True, project='runs/detect/', name='exp')  
+results = model('https://www.youtube.com/watch?v=-kYZRNBE0vY', 
+                stream=True                                         # stream=True เพื่อส่งข้อมูลเฟรมทีละเฟรม
+                #vid_stride=2, 
+                #save=True, 
+                #project='runs/detect/', 
+                #name='exp'
+               )
+                
 # stream=True เพื่อส่งข้อมูลเฟรมทีละเฟรม
 # **หากไม่ต้องการให้Save ไฟล์ที่ detect** => ให้ลบtext หลัง save=True, ... ออกให้หมด
 
