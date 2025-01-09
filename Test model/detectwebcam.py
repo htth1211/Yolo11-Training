@@ -4,11 +4,11 @@ import os
 
 # ข้อมูลเชื่อมต่อ PostgreSQL
 db_config = {
-    'dbname': 'license_plate_data',
-    'user': 'postgres',
-    'password': '1211',
-    'host': 'localhost',
-    'port': '5432'
+    'dbname': '___________',
+    'user': '___________',
+    'password': '___________',
+    'host': '___________',
+    'port': '___________'
 }
 
 # ฟังก์ชันสำหรับเชื่อมต่อฐานข้อมูล PostgreSQL
