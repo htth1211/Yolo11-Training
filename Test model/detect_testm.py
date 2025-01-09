@@ -1,6 +1,6 @@
 from ultralytics import YOLO
 
-model = YOLO('best10000.pt') #เปลี่ยนเป็น path ไฟล์ .pt ที่เทรนมาแล้ว
+model = YOLO('best.pt') #เปลี่ยนเป็น path ไฟล์ .pt ที่เทรนมาแล้ว
 
 #results = model(__,show= True), __คือ sorce เช่น 0 คือกล้องตัวแรก
 #หากให้ source เป็นimg,vdo,link ให้ใส่ '' แล้วใส่ path ของไฟล์ที่เราต้องการ
