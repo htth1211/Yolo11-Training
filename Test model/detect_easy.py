@@ -4,7 +4,7 @@ from ultralytics import YOLO
 import cv2  # สำหรับการจัดการวิดีโอ (กรณีใช้งานเสริม)
 
 # โหลดโมเดล YOLO
-model = YOLO("best_pt/best_license_plate1.pt")
+model = YOLO("best_pt/best.pt")
 
 #Path ของ source => (= 0, 1, ... คือ webcam ตัวที่ 1, 2, ...) ถ้าเป็น img,mp4,link ให้ใส่ path ของไฟล์นั้น
 
